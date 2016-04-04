@@ -2,10 +2,15 @@ class GoalsController < ApplicationController
   def new
   end
 
+  def index
+    if current_user
+      @goals = Goal.where("shareable = 'true' OR user_id = ?", current_user.id)
+    else
+      @goals = Goal.where(shareable: true)
+    end
+  end
 
   def create
-    # @goal = Goal.new(goal_params)
-    # @goal.user_id = current_user.id
     if current_user.goals.create(goal_params)
       redirect_to current_user.goals.last
     else
@@ -20,6 +25,6 @@ class GoalsController < ApplicationController
 
   private
   def goal_params
-    params.require(:goal).permit(:body, :shareable)
+    params.require(:goal).permit(:body, :viewable)
   end
 end

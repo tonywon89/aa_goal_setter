@@ -29,3 +29,45 @@ feature "goals can be created by user" do
   end
 
 end
+
+feature "#index" do
+  let(:sj) { FactoryGirl.create(:samuel_jackson) }
+  let(:bw) { FactoryGirl.create(:user, username:"BruceWillis") }
+
+  before(:each) do
+    FactoryGirl.create(
+                  :goal,
+                  body: "Kill all the snakes",
+                  user_id: sj.id
+                )
+
+    FactoryGirl.create(
+                  :goal,
+                  body: "Get more movie rolls",
+                  shareable: false,
+                  user_id: sj.id
+                )
+
+    FactoryGirl.create(
+                  :goal,
+                  body: "Save all the snakes",
+                  user_id: bw.id
+                )
+
+    FactoryGirl.create(
+                  :goal,
+                  body: "Get less movie rolls",
+                  shareable: false,
+                  user_id: bw.id
+                )
+  end
+
+  scenario "shows all public goals" do
+    sign_in_as_sj
+
+    expect(page).to have_content("Kill all the snakes")
+    expect(page).to have_content("Save all the snakes")
+
+  end
+
+end

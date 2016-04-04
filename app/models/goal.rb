@@ -16,7 +16,7 @@ class Goal < ActiveRecord::Base
   validates :status, inclusion: { in: ["Ongoing", "Completed"]}
   belongs_to :user
 
-  def shareable=(shareable)
-    shareable == "Private" ? false : true
+  def viewable=(value)
+    self.shareable = value == "Private" ? false : true
   end
 end
