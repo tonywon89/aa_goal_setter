@@ -27,6 +27,7 @@ end
 
 feature "logging out" do
   scenario "begins with logged out state" do
-    expect(current_user).to be(nil)
+    visit root_url
+    expect(page).to have_content("Login")
   end
 end

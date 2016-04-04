@@ -10,6 +10,8 @@
 
 <% if current_user %>
   <%= current_user.username %>
+<% else %>
+  <%= link_to "Login", new_session_url %>
 <% end %>
 
 <%= yield %>
