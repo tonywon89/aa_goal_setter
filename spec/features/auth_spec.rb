@@ -30,4 +30,12 @@ feature "logging out" do
     visit root_url
     expect(page).to have_content("Login")
   end
+
+  scenario "doesn't show username on the homepage after logout" do
+    FactoryGirl.create(:samuel_jackson)
+    sign_in_as_sj
+    click_button "Logout"
+
+    expect(page).not_to have_content("SamuelJackson")
+  end
 end

@@ -10,6 +10,7 @@
 
 <% if current_user %>
   <%= current_user.username %>
+  <%= button_to "Logout", session_url, method: :delete %>
 <% else %>
   <%= link_to "Login", new_session_url %>
 <% end %>
