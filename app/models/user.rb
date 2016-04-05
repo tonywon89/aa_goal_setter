@@ -11,11 +11,14 @@
 #
 
 class User < ActiveRecord::Base
+  include Commentable
+
   validates :username, :password_digest, :session_token, presence: true
 
   after_initialize :ensure_session_token
 
   has_many :goals
+  has_many :authored_comments, foreign_key: :user_id, class_name: "User"
 
   def self.find_by_credentials(username, password)
     user = User.find_by(username: username)

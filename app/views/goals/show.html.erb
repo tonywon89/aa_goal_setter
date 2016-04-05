@@ -1,1 +1,7 @@
 <h1>Goal: <%= @goal.body %> </h1>
+<% @goal.comments.each do |c| %>
+  <%= c.body %> <br>
+<% end %>
+
+
+<%= render "comments/form", commentable_type: "Goal", commentable_id: @goal.id %>

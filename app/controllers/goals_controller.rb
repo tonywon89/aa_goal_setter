@@ -1,4 +1,6 @@
 class GoalsController < ApplicationController
+  # before_action :require_login, only: [:create, :destroy]
+
   def new
   end
 
@@ -23,8 +25,19 @@ class GoalsController < ApplicationController
     @goal = Goal.find(params[:id])
   end
 
+  def destroy
+    @goal = Goal.find(params[:id])
+    @goal.destroy
+
+    redirect_to root_url
+  end
+
   private
   def goal_params
     params.require(:goal).permit(:body, :viewable)
+  end
+
+  def require_login
+    redirect_to new_session_url unless current_user
   end
 end

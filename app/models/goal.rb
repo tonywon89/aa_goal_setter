@@ -12,6 +12,8 @@
 #
 
 class Goal < ActiveRecord::Base
+  include Commentable 
+
   validates :body, :user_id, presence: true
   validates :status, inclusion: { in: ["Ongoing", "Completed"]}
   belongs_to :user

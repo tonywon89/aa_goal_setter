@@ -1,4 +1,11 @@
 <p id="notice"><%= notice %></p>
 
+<%= render "comments/form", commentable_id: @user.id, commentable_type: @user.class.name %>
+
+
+<% @user.comments.each do |c| %>
+  <%= c.body %> <br>
+<% end %>
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
